@@ -3,6 +3,8 @@ check-react-env
 
 Check that all used environment variables are set.
 
+❗This tool expects that all env variables have same prefix, eg. REACT_APP_
+
 ## Installation
 
 ```
@@ -25,10 +27,14 @@ Specify `--prefix` param based on your env variables.
 ```
 "prestart": "check-react-env --prefix=NX_",
 ```
+Add `--env` param to specify `.env` file to analyze.
+```
+"prestart": "check-react-env --prefix=NX_ --env=.env.development",
+```
 Optionally add `--pattern` to specify files to analyze, by default equals `./**/*.{ts,tsx,js,jsx}`, so it checks all `javaScript` and `typeScript` files
 
 ```
-"prestart": "check-react-env --prefix=NX_ --pattern='libs/**/*.{ts,tsx,js,jsx}'",
+"prestart": "check-react-env --prefix=NX_ --env=.env.development --pattern='libs/**/*.{ts,tsx,js,jsx}'",
 ```
 ### CRA Usage
 
@@ -48,6 +54,11 @@ add
 * Type: `string`
 
 A prefix for env variables, eg. `REACT_APP_` or `NX_`.
+
+#### --env
+* Type: `string`
+
+Path to desired `.env` file.
 
 #### --pattern
 * Type: `string`
@@ -71,7 +82,6 @@ Flag for CRA start script, uses development envs
 * Type: `boolean`
 
 Flag for CRA build script, uses production envs
-
 
 ## License
 

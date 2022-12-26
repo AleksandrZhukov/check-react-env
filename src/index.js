@@ -2,6 +2,7 @@
 
 const arg = require('arg');
 const fg = require('fast-glob');
+const dotenv = require('dotenv');
 const pc = require('picocolors');
 const { findMissedVariables, pluralize } = require('./utils');
 
@@ -9,6 +10,7 @@ const getArgs = () =>
   arg({
     '--cra-start': Boolean,
     '--cra-build': Boolean,
+    '--env': String,
     '--prefix': String,
     '--pattern': String,
     '--ignore-pattern': String,
@@ -29,9 +31,11 @@ const checkReactEnv = async () => {
     prefix = 'REACT_APP_';
   }
 
+  const redHeader = pc.red('\nCheck env variables:');
+
   if (!prefix) {
-    console.log(pc.red(`\nCheck env variables: please set --prefix parameter\n`))
-    return process.kill(process.pid);
+    console.log(pc.red(`\n${redHeader} please set --prefix parameter\n`));
+    process.kill(process.pid);
   }
 
   const pattern = args['--pattern'] || './**/*.{ts,tsx,js,jsx}';
@@ -41,18 +45,34 @@ const checkReactEnv = async () => {
     ignorePattern.push(args['--ignore-pattern']);
   }
 
+  if (args['--env']) {
+    dotenv.config({ path: args['--env'] });
+  }
+
+  const envs = Object.keys(process.env).filter((env) => env?.startsWith(prefix));
+
+  if (!envs.length) {
+    console.log(`\n${redHeader} current env file doesn't have any variable with prefix ${pc.red(prefix)}.
+    \rPlease check correctness of ${pc.blue('--env')} or ${pc.blue('--prefix')} params\n`);
+    process.kill(process.pid);
+  }
+
   const files = await fg(pattern, { ignore: ignorePattern });
-  const envs = Object.keys(process.env).filter((env) => env?.includes(prefix));
+  if (!files.length) {
+    console.log(`\n${redHeader} current pattern doesn't find any file.
+    \rPlease check correctness of ${pc.blue('--pattern')} or ${pc.blue('--ignore-pattern')} params\n`);
+    process.kill(process.pid);
+  }
+
   const missedVariables = await findMissedVariables(files, envs, prefix);
   const amount = missedVariables.length;
   if (amount) {
-    const header = pc.red('\nCheck env variables:');
     const names = pc.red(missedVariables.join(', '));
     const pluralValue = pluralize('value', amount);
     const pluralVariable = pluralize('variable', amount);
     const text = pc.yellow(`Please provide ${pluralValue} for ${names} ${pluralVariable}`);
 
-    console.log(`${header}\n${text}`);
+    console.log(`${redHeader}\n${text}`);
     process.kill(process.pid);
   } else {
     console.log(pc.green(`\nCheck env variables: all variables are set`));
