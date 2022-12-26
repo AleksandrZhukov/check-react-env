@@ -1,6 +1,6 @@
 {
   "name": "check-react-env",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Check that all used environment variables are set.",
   "main": "src/index.js",
   "scripts": {
