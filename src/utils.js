@@ -1,5 +1,5 @@
-const fs = require("fs");
-const readline = require("readline");
+const fs = require('fs');
+const readline = require('readline');
 
 const findMissedVariables = async (files, envs, prefix) => {
   const missedVariables = new Set();
@@ -21,13 +21,13 @@ const findMissedVariables = async (files, envs, prefix) => {
           missedVariables.add(env);
         }
       }
-    })
+    }),
   );
 
   return Array.from(missedVariables);
 };
 
-const pluralize = (noun, count) => `${noun}${count !== 1 ? "s" : ""}`;
+const pluralize = (noun, count) => `${noun}${count !== 1 ? 's' : ''}`;
 
 module.exports = {
   findMissedVariables,

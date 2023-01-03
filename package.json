@@ -2,7 +2,7 @@
   "name": "check-react-env",
   "version": "1.1.0",
   "description": "Check that all used environment variables are set.",
-  "main": "src/index.js",
+  "main": "src/checkEnv.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -31,6 +31,7 @@
     "react-scripts": "5.0.0"
   },
   "bin": {
-    "check-react-env": "./src/index.js"
+    "check-react-env": "./src/checkEnv.js",
+    "find-new-env": "./src/findNewEnv.js"
   }
 }

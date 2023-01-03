@@ -83,6 +83,45 @@ Flag for CRA start script, uses development envs
 
 Flag for CRA build script, uses production envs
 
+---
+
+find-new-env
+=========
+
+Helps do not forget to provide example for env variables.
+
+## Usage
+Perfectly to add this tool to the pre-commit hook, using for example [husky](https://www.npmjs.com/package/husky)
+
+```
+find-new-env --example-env=.env.example --prefix=REACT_APP_ --pattern='app/**/*.{ts,tsx,js,jsx}'
+```
+
+## Parameters
+
+#### --prefix
+* Required: `true`
+* Type: `string`
+
+A prefix for env variables, eg. `REACT_APP_` or `NX_`.
+
+#### --example-env
+* Type: `string`
+* Required: `true`
+
+Path to the file with env examples.
+
+#### --pattern
+* Type: `string`
+* Default: `./**/*.{ts,tsx,js,jsx}`
+
+Any correct glob pattern. Check [fast-glob#basic-syntax](https://github.com/mrmlnc/fast-glob#basic-syntax) for more details.
+
+#### --ignore-pattern
+* Type: `string`
+
+Glob pattern to exclude matches.
+
 ## License
 
 MIT
