@@ -48,6 +48,8 @@ add
 ```
 
 ## Parameters
+<details>
+    <summary>Click me</summary>
 
 #### --prefix
 * Required: `true` (for non-CRA apps)
@@ -83,7 +85,10 @@ Flag for CRA start script, uses development envs
 
 Flag for CRA build script, uses production envs
 
+</details>
+
 ---
+<br/>
 
 find-new-env
 =========
@@ -98,6 +103,8 @@ find-new-env --example-env=.env.example --prefix=REACT_APP_ --pattern='app/**/*.
 ```
 
 ## Parameters
+<details>
+    <summary>Click me</summary>
 
 #### --prefix
 * Required: `true`
@@ -106,8 +113,8 @@ find-new-env --example-env=.env.example --prefix=REACT_APP_ --pattern='app/**/*.
 A prefix for env variables, eg. `REACT_APP_` or `NX_`.
 
 #### --example-env
-* Type: `string`
 * Required: `true`
+* Type: `string`
 
 Path to the file with env examples.
 
@@ -121,6 +128,7 @@ Any correct glob pattern. Check [fast-glob#basic-syntax](https://github.com/mrml
 * Type: `string`
 
 Glob pattern to exclude matches.
+</details>
 
 ## License
 
